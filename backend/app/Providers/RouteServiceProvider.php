@@ -25,19 +25,6 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
-
-            // Tenant routes
-            foreach ($this->centralDomains() as $domain) {
-                Route::middleware('api')
-                    ->domain($domain)
-                    ->namespace($this->namespace)
-                    ->group(base_path('routes/tenant.php'));
-            }
         });
-    }
-
-    protected function centralDomains(): array
-    {
-        return config('tenancy.central_domains', []);
     }
 }
