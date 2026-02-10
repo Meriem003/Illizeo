@@ -6,10 +6,13 @@ use Stancl\Tenancy\Database\Models\Domain;
 use Stancl\Tenancy\Database\Models\Tenant;
 
 return [
-    'tenant_model' => \App\Models\Tenant::class, // ← CHANGÉ : Utiliser notre modèle personnalisé
+    'tenant_model' => \App\Models\Tenant::class, 
     'id_generator' => Stancl\Tenancy\UUIDGenerator::class,
 
     'domain_model' => Domain::class,
+
+    'tenant_route_namespace' => 'App\Http\Controllers\Tenant',
+
 
     'central_domains' => [
         '127.0.0.1',
@@ -65,15 +68,15 @@ return [
     ],
 
     'features' => [
-        Stancl\Tenancy\Features\UserImpersonation::class, // ← ACTIVÉ
-        Stancl\Tenancy\Features\TenantConfig::class, // ← ACTIVÉ
+        Stancl\Tenancy\Features\UserImpersonation::class,
+        Stancl\Tenancy\Features\TenantConfig::class,
     ],
 
     'routes' => true,
 
     'migration_parameters' => [
         '--force' => true,
-        '--path' => [database_path('migrations/tenant')], // ← Dossier pour migrations tenant
+        '--path' => [database_path('migrations/tenant')], 
         '--realpath' => true,
     ],
 
