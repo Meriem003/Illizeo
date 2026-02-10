@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\TenantRegistrationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Health check endpoint
 Route::get('/health', function () {
     return response()->json([
         'status' => 'ok',
@@ -21,12 +23,10 @@ Route::get('/health', function () {
     ]);
 });
 
-Route::post('/tenants', function (Request $request) {
-    return response()->json([
-        'message' => 'Tenant registration endpoint - to be implemented'
-    ]);
-});
+// Tenant registration endpoint (Central)
+Route::post('/tenants', [TenantRegistrationController::class, 'register']);
 
+// Authentication test endpoints (SPA)
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return response()->json($request->user());
 });
@@ -38,3 +38,4 @@ Route::middleware('auth:sanctum')->get('/test-auth', function (Request $request)
         'message' => 'You are authenticated!'
     ]);
 });
+
