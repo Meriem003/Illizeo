@@ -23,10 +23,7 @@ Route::get('/health', function () {
     ]);
 });
 
-// Tenant registration endpoint (Central)
-Route::post('/tenants', [TenantRegistrationController::class, 'register']);
-
-// Authentication test endpoints (SPA)
+Route::post('/register-tenant', [TenantRegistrationController::class, 'register']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return response()->json($request->user());
 });
