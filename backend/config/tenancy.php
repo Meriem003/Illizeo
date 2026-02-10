@@ -27,11 +27,9 @@ return [
     ],
 
     'database' => [
-        'central_connection' => env('DB_CONNECTION', 'mysql'), // ← CHANGÉ : mysql au lieu de central
-
+        'central_connection' => env('DB_CONNECTION', 'mysql'), 
         'template_tenant_connection' => null,
 
-        // ← CHANGÉ : Utiliser les variables d'environnement
         'prefix' => env('TENANCY_DATABASE_PREFIX', 'tenant_'),
         'suffix' => env('TENANCY_DATABASE_SUFFIX', ''),
 

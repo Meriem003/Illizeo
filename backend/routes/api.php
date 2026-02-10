@@ -21,10 +21,20 @@ Route::get('/health', function () {
     ]);
 });
 
-// Tenant registration endpoint (Central)
 Route::post('/tenants', function (Request $request) {
-    // This will be implemented in the next steps
     return response()->json([
         'message' => 'Tenant registration endpoint - to be implemented'
+    ]);
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return response()->json($request->user());
+});
+
+Route::middleware('auth:sanctum')->get('/test-auth', function (Request $request) {
+    return response()->json([
+        'authenticated' => true,
+        'user' => $request->user(),
+        'message' => 'You are authenticated!'
     ]);
 });
