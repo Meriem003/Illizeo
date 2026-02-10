@@ -47,4 +47,8 @@ class User extends Authenticatable
             'is_admin' => 'boolean',
         ];
     }
+     public function announcements()
+    {
+        return $this->hasMany(Announcement::class);
+    }
 }
