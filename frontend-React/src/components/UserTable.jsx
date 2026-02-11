@@ -1,13 +1,14 @@
+import PropTypes from 'prop-types';
 import { Trash2, Shield, User as UserIcon } from 'lucide-react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 
 const UserTable = ({ users, onDelete }) => {
   const { user: currentUser } = useAuth();
 
   const handleDelete = (userId, userName) => {
-    if (window.confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur "${userName}" ?`)) {
+    if (globalThis.confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur "${userName}" ?`)) {
       onDelete(userId);
     }
   };
@@ -68,7 +69,9 @@ const UserTable = ({ users, onDelete }) => {
                 {format(new Date(user.created_at), 'dd/MM/yyyy', { locale: fr })}
               </td>
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                {user.id !== currentUser?.id ? (
+                {user.id === currentUser?.id ? (
+                  <span className="text-gray-400 text-xs">(Vous)</span>
+                ) : (
                   <button
                     onClick={() => handleDelete(user.id, user.name)}
                     className="text-red-600 hover:text-red-900 inline-flex items-center"
@@ -76,8 +79,6 @@ const UserTable = ({ users, onDelete }) => {
                     <Trash2 className="w-4 h-4 mr-1" />
                     Supprimer
                   </button>
-                ) : (
-                  <span className="text-gray-400 text-xs">(Vous)</span>
                 )}
               </td>
             </tr>
@@ -92,6 +93,19 @@ const UserTable = ({ users, onDelete }) => {
       )}
     </div>
   );
+};
+
+UserTable.propTypes = {
+  users: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      is_admin: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]).isRequired,
+      created_at: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default UserTable;

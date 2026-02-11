@@ -1,8 +1,9 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Edit2, Trash2, User, Calendar } from 'lucide-react';
 import { format } from 'date-fns';
 import { fr } from 'date-fns/locale';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '../hooks/useAuth';
 import AnnouncementForm from './AnnouncementForm';
 
 const AnnouncementCard = ({ announcement, onUpdate, onDelete }) => {
@@ -107,6 +108,21 @@ const AnnouncementCard = ({ announcement, onUpdate, onDelete }) => {
       )}
     </div>
   );
+};
+
+AnnouncementCard.propTypes = {
+  announcement: PropTypes.shape({
+    id: PropTypes.number.isRequired,
+    user_id: PropTypes.number.isRequired,
+    title: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    created_at: PropTypes.string.isRequired,
+    user: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+  }).isRequired,
+  onUpdate: PropTypes.func.isRequired,
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default AnnouncementCard;

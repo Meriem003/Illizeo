@@ -79,17 +79,21 @@ const Dashboard = () => {
 
       <AnnouncementForm onSubmit={handleCreate} />
 
-      {loading ? (
+      {loading && (
         <div className="text-center py-12">
           <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
           <p className="mt-4 text-gray-600">Chargement des annonces...</p>
         </div>
-      ) : announcements.length === 0 ? (
+      )}
+      
+      {!loading && announcements.length === 0 && (
         <div className="text-center py-12 bg-white rounded-lg shadow">
           <p className="text-gray-500 text-lg">Aucune annonce pour le moment</p>
           <p className="text-gray-400 text-sm mt-2">Soyez le premier à publier !</p>
         </div>
-      ) : (
+      )}
+      
+      {!loading && announcements.length > 0 && (
         <div className="space-y-4">
           {announcements.map((announcement) => (
             <AnnouncementCard

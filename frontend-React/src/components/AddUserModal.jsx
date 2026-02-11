@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { X, UserPlus } from 'lucide-react';
 
 const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
@@ -50,10 +51,11 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="user-name" className="block text-sm font-medium text-gray-700 mb-1">
               Nom complet
             </label>
             <input
+              id="user-name"
               type="text"
               required
               value={formData.name}
@@ -64,10 +66,11 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="user-email" className="block text-sm font-medium text-gray-700 mb-1">
               Email
             </label>
             <input
+              id="user-email"
               type="email"
               required
               value={formData.email}
@@ -78,10 +81,11 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="user-password" className="block text-sm font-medium text-gray-700 mb-1">
               Mot de passe
             </label>
             <input
+              id="user-password"
               type="password"
               required
               minLength="8"
@@ -126,6 +130,12 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
       </div>
     </div>
   );
+};
+
+AddUserModal.propTypes = {
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+  onSubmit: PropTypes.func.isRequired,
 };
 
 export default AddUserModal;

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Send } from 'lucide-react';
 
 const AnnouncementForm = ({ onSubmit, editMode = false, initialData = null, onCancel = null }) => {
@@ -21,6 +22,12 @@ const AnnouncementForm = ({ onSubmit, editMode = false, initialData = null, onCa
     } finally {
       setLoading(false);
     }
+  };
+
+  const getButtonText = () => {
+    if (loading) return 'Envoi...';
+    if (editMode) return 'Mettre à jour';
+    return 'Publier';
   };
 
   return (
@@ -67,7 +74,7 @@ const AnnouncementForm = ({ onSubmit, editMode = false, initialData = null, onCa
             className="flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
           >
             <Send className="w-4 h-4 mr-2" />
-            {loading ? 'Envoi...' : editMode ? 'Mettre à jour' : 'Publier'}
+            {getButtonText()}
           </button>
 
           {editMode && onCancel && (
@@ -83,6 +90,16 @@ const AnnouncementForm = ({ onSubmit, editMode = false, initialData = null, onCa
       </div>
     </form>
   );
+};
+
+AnnouncementForm.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+  editMode: PropTypes.bool,
+  initialData: PropTypes.shape({
+    title: PropTypes.string,
+    content: PropTypes.string,
+  }),
+  onCancel: PropTypes.func,
 };
 
 export default AnnouncementForm;
