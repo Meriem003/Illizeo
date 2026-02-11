@@ -2,7 +2,7 @@ import api from './api';
 
 const authService = {
   login: async (email, password) => {
-    const response = await api.post('/login', { email, password });
+    const response = await api.post('/auth/login', { email, password });
     
     if (response.data.token) {
       localStorage.setItem('token', response.data.token);
@@ -14,7 +14,7 @@ const authService = {
 
   logout: async () => {
     try {
-      await api.post('/logout');
+      await api.post('/auth/logout');
     } finally {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
