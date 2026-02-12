@@ -1,8 +1,8 @@
-# 🏢 Illizeo - Plateforme Multi-Tenant SaaS
+# Illizeo - Plateforme Multi-Tenant SaaS
 
 Application SaaS collaborative permettant à chaque entreprise de créer son espace de travail isolé avec gestion d'équipe et d'annonces.
 
-## 📖 Vue d'ensemble
+## Vue d'ensemble
 
 **Illizeo** est une plateforme multi-tenant où chaque entreprise dispose de :
 - Sa propre base de données isolée (isolation physique)
@@ -25,7 +25,7 @@ Application SaaS collaborative permettant à chaque entreprise de créer son esp
 - Middleware `InitializeTenancyByDomain` pour détecter le tenant
 
 ### Frontend - React 19
-- **Framework:** React 19 avec hooks modernes
+- **Framework:** React 
 - **Routing:** React Router v7
 - **Styling:** TailwindCSS avec design system personnalisé
 - **HTTP Client:** Axios avec intercepteurs
