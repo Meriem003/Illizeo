@@ -1,121 +1,139 @@
-# 🏢 Illizeo - Multi-Tenant Team Board
+# 🏢 Illizeo - Plateforme Multi-Tenant SaaS
 
-Plateforme SaaS multi-tenant permettant aux entreprises de créer des espaces de travail privés pour leurs équipes.
+Application SaaS collaborative permettant à chaque entreprise de créer son espace de travail isolé avec gestion d'équipe et d'annonces.
 
-## 🎯 Fonctionnalités
+## 📖 Vue d'ensemble
 
-- **Multi-Tenancy:** Isolation physique des données (1 BDD par entreprise)
-- **Gestion d'équipe:** Administrateurs peuvent ajouter des employés
-- **Annonces collaboratives:** Partage d'informations avec contrôle d'accès
-- **Autorisation granulaire:** Seul l'auteur peut modifier/supprimer ses annonces
+**Illizeo** est une plateforme multi-tenant où chaque entreprise dispose de :
+- Sa propre base de données isolée (isolation physique)
+- Son propre domaine (ex: `Illizeo.localhost`)
+- Ses utilisateurs (administrateurs et employés)
+- Son espace d'annonces collaboratives
 
-## 🛠️ Stack Technique
+## 🛠️ Architecture
 
-- **Backend:** Laravel 11 + stancl/tenancy + Laravel Sanctum
-- **Frontend:** React 19 + Vite 7 + TailwindCSS
-- **Base de données:** MySQL (multi-tenant, database per tenant)
+### Backend - Laravel 11
+- **Framework:** Laravel 11 avec architecture API REST
+- **Multi-tenancy:** `stancl/tenancy` pour l'isolation par base de données
+- **Authentification:** Laravel Sanctum (tokens API)
+- **Authorization:** Laravel Policies pour les permissions granulaires
+- **Documentation:** Swagger (L5-Swagger)
 
-## 🚀 Installation Rapide
+**Fonctionnement:**
+- Routes **centrales** (api.php) : inscription tenant
+- Routes **tenant** (tenant.php) : auth, users, annonces
+- Middleware `InitializeTenancyByDomain` pour détecter le tenant
 
-### Backend
+### Frontend - React 19
+- **Framework:** React 19 avec hooks modernes
+- **Routing:** React Router v7
+- **Styling:** TailwindCSS avec design system personnalisé
+- **HTTP Client:** Axios avec intercepteurs
+- **State Management:** Context API (AuthContext)
+
+**Architecture:**
+- `AuthPage` : Formulaire combiné login/register
+- `Dashboard` : Flux d'annonces avec CRUD
+- `Users` : Gestion d'équipe (admin seulement)
+- `AuthContext` : Gestion de l'état d'authentification
+
+## ✨ Fonctionnalités Principales
+
+### 🔐 Multi-tenancy
+- **Isolation physique** : Chaque tenant = 1 base de données MySQL
+- **Domaines uniques** : `entreprise.localhost`
+- **Détection automatique** : Middleware résout le tenant via le domaine
+
+### 👥 Gestion Utilisateurs
+- **Rôles** : Admin (full access) / Employé (lecture + création)
+- **CRUD Utilisateurs** : Réservé aux administrateurs
+- **Protection** : Un admin ne peut pas se supprimer
+
+### 📢 Système d'Annonces
+- **Création** : Tous les utilisateurs authentifiés
+- **Lecture** : Toutes les annonces visibles par tous
+- **Modification/Suppression** : Réservée à l'auteur uniquement
+- **Policies Laravel** : `AnnouncementPolicy` applique les règles
+
+## 🚀 Installation
+
+### Prérequis
+- PHP 8.2+, Composer
+- Node.js 18+, npm
+- MySQL
+- Git
+
+### 1. Backend
 
 ```bash
 cd backend
 composer install
 cp .env.example .env
+# Configurer DB_* dans .env
 php artisan key:generate
 php artisan migrate:fresh --seed
 php artisan serve --port=8000
 ```
 
-### Frontend
+### 2. Frontend
 
 ```bash
 cd frontend-React
 npm install
 npm run dev
+# Démarre sur http://localhost:5174
 ```
 
-## 🔑 Identifiants de Test
+## 🧪 Comptes de Test
 
-| Entreprise | URL | Email | Mot de passe | Rôle |
-|-----------|-----|-------|--------------|------|
-| **Acme Corp** | http://acme.localhost:8000 | alice@acme.com | password123 | Admin |
-| Acme Corp | http://acme.localhost:8000 | charlie@acme.com | password123 | Employé |
-| **TechCorp** | http://techcorp.localhost:8000 | bob@techcorp.com | password123 | Admin |
-| TechCorp | http://techcorp.localhost:8000 | eve@techcorp.com | password123 | Employé |
+| Tenant | URL | Email | Password | Rôle |
+|--------|-----|-------|----------|------|
+| Acme Corp | `acme.localhost:5174` | alice@acme.com | password123 | Admin |
+| Acme Corp | `acme.localhost:5174` | charlie@acme.com | password123 | Employé |
+| TechCorp | `techcorp.localhost:5174` | bob@techcorp.com | password123 | Admin |
 
-## 📁 Structure du Projet
+## �️ Structure
 
 ```
 Illizeo/
-├── backend/              # API Laravel + Multi-Tenancy
-│   ├── app/
-│   │   ├── Http/Controllers/
-│   │   │   ├── Api/      # Controllers centraux (registration)
-│   │   │   └── Tenant/   # Controllers tenant (auth, users, announcements)
-│   │   ├── Models/
-│   │   └── Policies/     # Autorisations (AnnouncementPolicy)
+├── backend/                    # API Laravel
+│   ├── app/Http/Controllers/
+│   │   ├── Api/               # Routes centrales (tenant registration)
+│   │   └── Tenant/            # Routes tenant (auth, users, announcements)
+│   ├── app/Models/            # Tenant, User, Announcement
+│   ├── app/Policies/          # AnnouncementPolicy
 │   ├── routes/
-│   │   ├── api.php       # Routes centrales
-│   │   └── tenant.php    # Routes tenant
-│   └── database/
-│       ├── migrations/
-│       └── seeders/
+│   │   ├── api.php           # Routes centrales
+│   │   └── tenant.php        # Routes tenant-specific
+│   └── database/migrations/  # Migrations central + tenant
 │
-└── frontend-React/       # Application React
+└── frontend-React/            # SPA React
     ├── src/
-    │   ├── components/   # Composants réutilisables
-    │   ├── contexts/     # Context React (Auth)
-    │   ├── hooks/        # Custom hooks
-    │   ├── layouts/      # Layouts (Dashboard, Auth)
-    │   ├── pages/        # Pages (Login, Dashboard, Users)
-    │   ├── services/     # API services
-    │   └── utils/        # Utilitaires, constantes
-    └── public/
+    │   ├── components/       # Navbar, Sidebar, ProtectedRoute
+    │   ├── contexts/         # AuthContext
+    │   ├── pages/           # AuthPage, Dashboard, Users
+    │   ├── services/        # authService, announcementService
+    │   └── utils/           # Helpers, constantes
+    └── tailwind.config.js   # Design system
 ```
 
-## 🔗 Routes API
+## � API Endpoints
 
-### Central (http://localhost:8000/api)
-- `POST /register-tenant` - Créer un nouveau tenant
+### Central (`localhost:8000/api`)
+- `POST /register-tenant` - Créer nouveau tenant + admin
 
-### Tenant (http://acme.localhost:8000/api)
+### Tenant (`{tenant}.localhost:8000/api`)
+**Auth:** `POST /auth/login`, `POST /auth/logout`, `GET /auth/user`  
+**Users (Admin):** `GET /users`, `POST /users`, `DELETE /users/{id}`  
+**Announcements:** `GET`, `POST`, `PUT /{id}`, `DELETE /{id}`
 
-**Authentification:**
-- `POST /auth/login` - Connexion
-- `POST /auth/logout` - Déconnexion
-- `GET /auth/user` - Utilisateur connecté
+## 🛡️ Sécurité
 
-**Utilisateurs (Admin only):**
-- `GET /users` - Liste des employés
-- `POST /users` - Créer un employé
-- `DELETE /users/{id}` - Supprimer un employé
+- **Multi-tenancy:** Isolation base de données + middleware `InitializeTenancyByDomain`
+- **Auth:** Laravel Sanctum avec tokens stateless
+- **Policies:** `AnnouncementPolicy` - seul l'auteur modifie/supprime
+- **Validation:** Admin ne peut pas se supprimer
 
-**Annonces:**
-- `GET /announcements` - Toutes les annonces
-- `POST /announcements` - Créer (authentifié)
-- `PUT /announcements/{id}` - Modifier (auteur uniquement)
-- `DELETE /announcements/{id}` - Supprimer (auteur uniquement)
+---
 
-## 🔐 Politique d'Autorisation
-
-### Règles Implémentées
-
-1. **Utilisateurs:**
-   - Seuls les **administrateurs** peuvent créer/supprimer des utilisateurs
-   - Un admin ne peut pas se supprimer lui-même
-
-2. **Annonces:**
-   - Tous les utilisateurs peuvent **voir** toutes les annonces
-   - Tous les utilisateurs peuvent **créer** des annonces
-   - Seul l'**auteur** peut **modifier** ou **supprimer** sa propre annonce
-
-## 🎨 Interface Utilisateur
-
-- **Login:** Authentification avec gestion d'erreurs
-- **Dashboard:** Flux d'annonces avec création/édition/suppression
-- **Users (Admin):** Gestion des employés avec modal d'ajout
-- **UI Conditionnelle:** Boutons Modifier/Supprimer visibles uniquement pour l'auteur
-
-Test technique réalisé pour **Illizeo**
+💻 **Développé par** meryem salhi | 🏢 **Projet** Illizeo Multi-Tenant Test technique 
