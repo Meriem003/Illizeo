@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Building2, UserPlus, CheckCircle } from 'lucide-react';
+import { Building2, UserPlus, CheckCircle, Mail, Lock, User, Globe, AlertCircle } from 'lucide-react';
 import axios from 'axios';
 
 const RegisterTenant = () => {
@@ -60,28 +60,39 @@ const RegisterTenant = () => {
     
     return (
       <div className="w-full max-w-md">
-        <div className="bg-white py-8 px-6 shadow-xl rounded-lg sm:px-10">
+        <div className="card p-8 sm:p-10">
           <div className="text-center">
-            <CheckCircle className="mx-auto h-16 w-16 text-green-500" />
-            <h2 className="mt-4 text-2xl font-bold text-gray-900">Entreprise créée !</h2>
-            <p className="mt-2 text-gray-600">
-              Votre espace de travail <strong>{success.tenant.company_name}</strong> est prêt.
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-success-500 to-success-600 rounded-2xl mb-4 shadow-lg">
+              <CheckCircle className="w-12 h-12 text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-neutral-900 mb-2">Entreprise créée !</h2>
+            <p className="text-neutral-600">
+              Votre espace de travail <strong className="text-neutral-900">{success.tenant.company_name}</strong> est prêt.
             </p>
           </div>
 
-          <div className="mt-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-            <p className="text-sm text-green-800 font-medium">Informations de connexion :</p>
-            <ul className="mt-2 text-sm text-green-700 space-y-1">
-              <li><strong>URL :</strong> {success.tenant.domain}:5173</li>
-              <li><strong>Email :</strong> {success.admin.email}</li>
-              <li><strong>Mot de passe :</strong> celui que vous avez choisi</li>
+          <div className="mt-6 p-5 bg-success-50 border border-success-200 rounded-xl">
+            <p className="text-sm text-success-800 font-semibold mb-3">Informations de connexion</p>
+            <ul className="text-sm text-success-700 space-y-2">
+              <li className="flex items-start">
+                <Globe className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+                <span><strong>URL :</strong> {success.tenant.domain}:5173</span>
+              </li>
+              <li className="flex items-start">
+                <Mail className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+                <span><strong>Email :</strong> {success.admin.email}</span>
+              </li>
+              <li className="flex items-start">
+                <Lock className="w-4 h-4 mr-2 mt-0.5 flex-shrink-0" />
+                <span><strong>Mot de passe :</strong> celui que vous avez choisi</span>
+              </li>
             </ul>
           </div>
 
           <div className="mt-6">
             <a
               href={tenantUrl}
-              className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700"
+              className="btn-primary w-full flex justify-center items-center"
             >
               Accéder à mon espace
             </a>
@@ -100,7 +111,7 @@ const RegisterTenant = () => {
                   admin_password_confirmation: '',
                 });
               }}
-              className="text-sm text-primary hover:underline"
+              className="text-sm text-primary-600 hover:text-primary-700 font-medium transition-colors"
             >
               Créer une autre entreprise
             </button>
@@ -111,53 +122,71 @@ const RegisterTenant = () => {
   }
 
   return (
-    <div className="w-full max-w-md">
-      <div className="bg-white py-8 px-6 shadow-xl rounded-lg sm:px-10">
-        <div className="sm:mx-auto sm:w-full sm:max-w-md mb-6">
-          <Building2 className="mx-auto h-12 w-12 text-primary" />
-          <h2 className="mt-4 text-center text-2xl font-bold text-gray-900">
+    <div className="w-full max-w-2xl">
+      <div className="card p-8 sm:p-10">
+        <div className="text-center mb-8">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl mb-4 shadow-lg">
+            <Building2 className="w-8 h-8 text-white" />
+          </div>
+          <h2 className="text-3xl font-bold text-neutral-900 mb-2">
             Créer votre entreprise
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="text-sm text-neutral-500">
             Enregistrez votre organisation sur Illizeo
           </p>
         </div>
 
         {error && (
-          <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded text-sm">
-            {error}
+          <div className="mb-6 flex items-start gap-3 p-4 bg-error-50 border border-error-200 rounded-xl">
+            <AlertCircle className="w-5 h-5 text-error-600 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-error-700">{error}</p>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="border-b border-gray-200 pb-4">
-            <h3 className="text-sm font-medium text-gray-700 mb-3">Informations de l'entreprise</h3>
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Section Entreprise */}
+          <div className="border-b border-neutral-200 pb-6">
+            <h3 className="text-sm font-semibold text-neutral-700 mb-4 flex items-center">
+              <Building2 className="w-4 h-4 mr-2 text-primary-600" />
+              Informations de l'entreprise
+            </h3>
             
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
-                <label htmlFor="company_name" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="company_name" className="block text-sm font-medium text-neutral-700 mb-2">
                   Nom de l'entreprise
                 </label>
-                <input
-                  id="company_name"
-                  name="company_name"
-                  type="text"
-                  required
-                  value={formData.company_name}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-sm"
-                  placeholder="Ma Société"
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Building2 className="h-5 w-5 text-neutral-400" />
+                  </div>
+                  <input
+                    id="company_name"
+                    name="company_name"
+                    type="text"
+                    required
+                    value={formData.company_name}
+                    onChange={handleChange}
+                    className="input-modern pl-11"
+                    placeholder="Ma Société"
+                  />
+                </div>
                 {fieldErrors.company_name && (
-                  <p className="mt-1 text-xs text-red-600">{fieldErrors.company_name[0]}</p>
+                  <p className="mt-1.5 text-xs text-error-600 flex items-center">
+                    <AlertCircle className="w-3 h-3 mr-1" />
+                    {fieldErrors.company_name[0]}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="domain" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="domain" className="block text-sm font-medium text-neutral-700 mb-2">
                   Sous-domaine
                 </label>
-                <div className="mt-1 flex rounded-md shadow-sm">
+                <div className="relative flex rounded-xl shadow-sm overflow-hidden">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none z-10">
+                    <Globe className="h-5 w-5 text-neutral-400" />
+                  </div>
                   <input
                     id="domain"
                     name="domain"
@@ -165,95 +194,131 @@ const RegisterTenant = () => {
                     required
                     value={formData.domain}
                     onChange={handleChange}
-                    className="flex-1 block w-full px-3 py-2 border border-gray-300 rounded-l-md focus:outline-none focus:ring-primary focus:border-primary text-sm"
+                    className="flex-1 block w-full pl-11 pr-3 py-3 border border-neutral-300 rounded-l-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent transition-all"
                     placeholder="masociete"
                   />
-                  <span className="inline-flex items-center px-3 rounded-r-md border border-l-0 border-gray-300 bg-gray-50 text-gray-500 text-sm">
+                  <span className="inline-flex items-center px-4 border border-l-0 border-neutral-300 bg-neutral-50 text-neutral-600 text-sm font-medium">
                     .localhost
                   </span>
                 </div>
                 {fieldErrors.domain && (
-                  <p className="mt-1 text-xs text-red-600">{fieldErrors.domain[0]}</p>
+                  <p className="mt-1.5 text-xs text-error-600 flex items-center">
+                    <AlertCircle className="w-3 h-3 mr-1" />
+                    {fieldErrors.domain[0]}
+                  </p>
                 )}
               </div>
             </div>
           </div>
 
+          {/* Section Administrateur */}
           <div>
-            <h3 className="text-sm font-medium text-gray-700 mb-3">Administrateur</h3>
+            <h3 className="text-sm font-semibold text-neutral-700 mb-4 flex items-center">
+              <User className="w-4 h-4 mr-2 text-primary-600" />
+              Administrateur
+            </h3>
             
-            <div className="space-y-3">
+            <div className="space-y-4">
               <div>
-                <label htmlFor="admin_name" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="admin_name" className="block text-sm font-medium text-neutral-700 mb-2">
                   Nom complet
                 </label>
-                <input
-                  id="admin_name"
-                  name="admin_name"
-                  type="text"
-                  required
-                  value={formData.admin_name}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-sm"
-                  placeholder="Jean Dupont"
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <User className="h-5 w-5 text-neutral-400" />
+                  </div>
+                  <input
+                    id="admin_name"
+                    name="admin_name"
+                    type="text"
+                    required
+                    value={formData.admin_name}
+                    onChange={handleChange}
+                    className="input-modern pl-11"
+                    placeholder="Jean Dupont"
+                  />
+                </div>
                 {fieldErrors.admin_name && (
-                  <p className="mt-1 text-xs text-red-600">{fieldErrors.admin_name[0]}</p>
+                  <p className="mt-1.5 text-xs text-error-600 flex items-center">
+                    <AlertCircle className="w-3 h-3 mr-1" />
+                    {fieldErrors.admin_name[0]}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="admin_email" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="admin_email" className="block text-sm font-medium text-neutral-700 mb-2">
                   Email
                 </label>
-                <input
-                  id="admin_email"
-                  name="admin_email"
-                  type="email"
-                  required
-                  value={formData.admin_email}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-sm"
-                  placeholder="admin@masociete.com"
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Mail className="h-5 w-5 text-neutral-400" />
+                  </div>
+                  <input
+                    id="admin_email"
+                    name="admin_email"
+                    type="email"
+                    required
+                    value={formData.admin_email}
+                    onChange={handleChange}
+                    className="input-modern pl-11"
+                    placeholder="admin@masociete.com"
+                  />
+                </div>
                 {fieldErrors.admin_email && (
-                  <p className="mt-1 text-xs text-red-600">{fieldErrors.admin_email[0]}</p>
+                  <p className="mt-1.5 text-xs text-error-600 flex items-center">
+                    <AlertCircle className="w-3 h-3 mr-1" />
+                    {fieldErrors.admin_email[0]}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="admin_password" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="admin_password" className="block text-sm font-medium text-neutral-700 mb-2">
                   Mot de passe
                 </label>
-                <input
-                  id="admin_password"
-                  name="admin_password"
-                  type="password"
-                  required
-                  value={formData.admin_password}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-sm"
-                  placeholder="••••••••"
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-neutral-400" />
+                  </div>
+                  <input
+                    id="admin_password"
+                    name="admin_password"
+                    type="password"
+                    required
+                    value={formData.admin_password}
+                    onChange={handleChange}
+                    className="input-modern pl-11"
+                    placeholder="••••••••"
+                  />
+                </div>
                 {fieldErrors.admin_password && (
-                  <p className="mt-1 text-xs text-red-600">{fieldErrors.admin_password[0]}</p>
+                  <p className="mt-1.5 text-xs text-error-600 flex items-center">
+                    <AlertCircle className="w-3 h-3 mr-1" />
+                    {fieldErrors.admin_password[0]}
+                  </p>
                 )}
               </div>
 
               <div>
-                <label htmlFor="admin_password_confirmation" className="block text-sm font-medium text-gray-700">
+                <label htmlFor="admin_password_confirmation" className="block text-sm font-medium text-neutral-700 mb-2">
                   Confirmer le mot de passe
                 </label>
-                <input
-                  id="admin_password_confirmation"
-                  name="admin_password_confirmation"
-                  type="password"
-                  required
-                  value={formData.admin_password_confirmation}
-                  onChange={handleChange}
-                  className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-sm"
-                  placeholder="••••••••"
-                />
+                <div className="relative">
+                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                    <Lock className="h-5 w-5 text-neutral-400" />
+                  </div>
+                  <input
+                    id="admin_password_confirmation"
+                    name="admin_password_confirmation"
+                    type="password"
+                    required
+                    value={formData.admin_password_confirmation}
+                    onChange={handleChange}
+                    className="input-modern pl-11"
+                    placeholder="••••••••"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -261,28 +326,36 @@ const RegisterTenant = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex justify-center items-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-primary hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary w-full mt-6"
           >
             {loading ? (
-              'Création en cours...'
+              <>
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                Création en cours...
+              </>
             ) : (
               <>
-                <UserPlus className="w-4 h-4 mr-2" />
+                <UserPlus className="w-5 h-5 mr-2" />
                 Créer mon entreprise
               </>
             )}
           </button>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">
+        <div className="mt-8 text-center">
+          <p className="text-sm text-neutral-500">
             Déjà inscrit ?{' '}
-            <a href="http://localhost:5173/login" className="text-primary hover:underline">
+            <a href="http://localhost:5173/login" className="font-medium text-primary-600 hover:text-primary-700 transition-colors">
               Connectez-vous via votre sous-domaine
             </a>
           </p>
         </div>
       </div>
+
+      {/* Footer subtil */}
+      <p className="mt-6 text-center text-xs text-neutral-400">
+        © 2026 Illizeo. Plateforme multi-tenant sécurisée.
+      </p>
     </div>
   );
 };

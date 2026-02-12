@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import AnnouncementForm from '../components/AnnouncementForm';
 import AnnouncementCard from '../components/AnnouncementCard';
 import announcementService from '../services/announcementService';
-import { RefreshCw } from 'lucide-react';
+import { RefreshCw, MessageSquare, AlertCircle } from 'lucide-react';
 
 const Dashboard = () => {
   const [announcements, setAnnouncements] = useState([]);
@@ -58,12 +58,15 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="px-4 sm:px-0">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold text-gray-900">Tableau d'annonces</h1>
+    <div>
+      <div className="flex justify-between items-center mb-8">
+        <div>
+          <h1 className="text-3xl font-bold text-neutral-900 mb-1">Tableau des annonces</h1>
+          <p className="text-neutral-500">Partagez des informations avec votre équipe</p>
+        </div>
         <button
           onClick={fetchAnnouncements}
-          className="flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+          className="flex items-center px-4 py-2.5 text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all"
         >
           <RefreshCw className="w-4 h-4 mr-2" />
           Actualiser
@@ -71,24 +74,28 @@ const Dashboard = () => {
       </div>
 
       {error && (
-        <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
-          {error}
+        <div className="mb-6 flex items-start gap-3 p-4 bg-error-50 border border-error-200 rounded-xl">
+          <AlertCircle className="w-5 h-5 text-error-600 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-error-700">{error}</p>
         </div>
       )}
 
       <AnnouncementForm onSubmit={handleCreate} />
 
       {loading && (
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          <p className="mt-4 text-gray-600">Chargement des annonces...</p>
+        <div className="text-center py-16">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary-200 border-t-primary-600"></div>
+          <p className="mt-4 text-neutral-600 font-medium">Chargement des annonces...</p>
         </div>
       )}
       
       {!loading && announcements.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-lg shadow">
-          <p className="text-gray-500 text-lg">Aucune annonce pour le moment</p>
-          <p className="text-gray-400 text-sm mt-2">Soyez le premier à publier !</p>
+        <div className="text-center py-16 card">
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-primary-100 rounded-2xl mb-4">
+            <MessageSquare className="w-8 h-8 text-primary-600" />
+          </div>
+          <p className="text-neutral-700 text-lg font-medium">Aucune annonce pour le moment</p>
+          <p className="text-neutral-500 text-sm mt-2">Soyez le premier à publier une annonce !</p>
         </div>
       )}
       

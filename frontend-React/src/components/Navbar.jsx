@@ -14,45 +14,55 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-white shadow-lg">
+    <nav className="bg-white border-b border-neutral-200 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex">
-            <div className="flex-shrink-0 flex items-center">
-              <h1 className="text-2xl font-bold text-primary">Illizeo</h1>
-              <div className="ml-3 flex items-center px-2 py-1 bg-blue-50 rounded-md">
-                <Building2 className="w-4 h-4 text-primary mr-1" />
-                <span className="text-sm font-medium text-primary">{tenantName}</span>
+          <div className="flex items-center gap-8">
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 bg-gradient-to-br from-primary-500 to-primary-600 rounded-xl flex items-center justify-center shadow-md">
+                <Building2 className="w-5 h-5 text-white" />
               </div>
+              <h1 className="text-xl font-bold text-neutral-900">Illizeo</h1>
             </div>
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            
+            <div className="inline-flex items-center px-3 py-1.5 bg-primary-50 rounded-lg">
+              <Building2 className="w-4 h-4 text-primary-600 mr-1.5" />
+              <span className="text-sm font-semibold text-primary-700">{tenantName}</span>
+            </div>
+
+            <div className="hidden sm:flex sm:gap-2">
               <Link
                 to="/dashboard"
-                className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-primary"
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all"
               >
                 <Home className="w-4 h-4 mr-2" />
                 Dashboard
               </Link>
               <Link
                 to="/users"
-                className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-primary"
+                className="inline-flex items-center px-4 py-2 text-sm font-medium text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all"
               >
                 <Users className="w-4 h-4 mr-2" />
-                Users
+                Utilisateurs
               </Link>
             </div>
           </div>
-          <div className="flex items-center">
-            <span className="text-sm text-gray-700 mr-4">
-              {user?.name}
-              {isAdmin() && <span className="ml-2 text-xs text-primary font-semibold">(Admin)</span>}
-            </span>
+          
+          <div className="flex items-center gap-4">
+            <div className="text-right">
+              <p className="text-sm font-medium text-neutral-900">{user?.name}</p>
+              {isAdmin() && (
+                <span className="inline-flex items-center px-2 py-0.5 rounded-md bg-primary-100 text-xs font-semibold text-primary-700">
+                  Admin
+                </span>
+              )}
+            </div>
             <button
               onClick={handleLogout}
-              className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700"
+              className="inline-flex items-center px-4 py-2 text-sm font-medium text-error-700 hover:text-error-800 hover:bg-error-50 rounded-lg transition-all"
             >
               <LogOut className="w-4 h-4 mr-2" />
-              Logout
+              Déconnexion
             </button>
           </div>
         </div>

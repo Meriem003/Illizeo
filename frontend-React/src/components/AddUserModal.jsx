@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { X, UserPlus } from 'lucide-react';
+import { X, UserPlus, User, Mail, Lock, Shield, AlertCircle } from 'lucide-react';
 
 const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
   const [formData, setFormData] = useState({
@@ -31,80 +31,102 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white rounded-lg p-6 max-w-md w-full mx-4">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-semibold">Ajouter un employé</h3>
+    <div className="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm flex items-center justify-center z-50">
+      <div className="card p-6 max-w-md w-full mx-4">
+        <div className="flex justify-between items-center mb-6">
+          <h3 className="text-xl font-bold text-neutral-900 flex items-center">
+            <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center mr-3">
+              <UserPlus className="w-4 h-4 text-primary-600" />
+            </div>
+            Ajouter un employé
+          </h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-gray-600"
+            className="text-neutral-400 hover:text-neutral-600 hover:bg-neutral-100 p-2 rounded-lg transition-all"
           >
-            <X className="w-6 h-6" />
+            <X className="w-5 h-5" />
           </button>
         </div>
 
         {error && (
-          <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
-            {error}
+          <div className="mb-6 flex items-start gap-3 p-4 bg-error-50 border border-error-200 rounded-xl">
+            <AlertCircle className="w-5 h-5 text-error-600 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-error-700">{error}</p>
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="user-name" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="user-name" className="block text-sm font-medium text-neutral-700 mb-2">
               Nom complet
             </label>
-            <input
-              id="user-name"
-              type="text"
-              required
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="John Doe"
-            />
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <User className="h-5 w-5 text-neutral-400" />
+              </div>
+              <input
+                id="user-name"
+                type="text"
+                required
+                value={formData.name}
+                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                className="input-modern pl-11"
+                placeholder="John Doe"
+              />
+            </div>
           </div>
 
           <div>
-            <label htmlFor="user-email" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="user-email" className="block text-sm font-medium text-neutral-700 mb-2">
               Email
             </label>
-            <input
-              id="user-email"
-              type="email"
-              required
-              value={formData.email}
-              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="john@company.com"
-            />
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Mail className="h-5 w-5 text-neutral-400" />
+              </div>
+              <input
+                id="user-email"
+                type="email"
+                required
+                value={formData.email}
+                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                className="input-modern pl-11"
+                placeholder="john@company.com"
+              />
+            </div>
           </div>
 
           <div>
-            <label htmlFor="user-password" className="block text-sm font-medium text-gray-700 mb-1">
+            <label htmlFor="user-password" className="block text-sm font-medium text-neutral-700 mb-2">
               Mot de passe
             </label>
-            <input
-              id="user-password"
-              type="password"
-              required
-              minLength="8"
-              value={formData.password}
-              onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="Minimum 8 caractères"
-            />
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+                <Lock className="h-5 w-5 text-neutral-400" />
+              </div>
+              <input
+                id="user-password"
+                type="password"
+                required
+                minLength="8"
+                value={formData.password}
+                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                className="input-modern pl-11"
+                placeholder="Minimum 8 caractères"
+              />
+            </div>
           </div>
 
-          <div className="flex items-center">
+          <div className="flex items-center p-4 bg-primary-50 border border-primary-200 rounded-xl">
             <input
               type="checkbox"
               id="is_admin"
               checked={formData.is_admin}
               onChange={(e) => setFormData({ ...formData, is_admin: e.target.checked })}
-              className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+              className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-neutral-300 rounded"
             />
-            <label htmlFor="is_admin" className="ml-2 block text-sm text-gray-700">
+            <label htmlFor="is_admin" className="ml-3 flex items-center text-sm font-medium text-neutral-800">
+              <Shield className="w-4 h-4 mr-2 text-primary-600" />
               Administrateur
             </label>
           </div>
@@ -113,17 +135,26 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
             <button
               type="button"
               onClick={onClose}
-              className="flex-1 px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+              className="btn-secondary flex-1"
             >
               Annuler
             </button>
             <button
               type="submit"
               disabled={loading}
-              className="flex-1 flex items-center justify-center px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+              className="btn-primary flex-1"
             >
-              <UserPlus className="w-4 h-4 mr-2" />
-              {loading ? 'Création...' : 'Créer'}
+              {loading ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                  Création...
+                </>
+              ) : (
+                <>
+                  <UserPlus className="w-4 h-4 mr-2" />
+                  Créer
+                </>
+              )}
             </button>
           </div>
         </form>

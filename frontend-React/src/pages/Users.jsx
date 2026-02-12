@@ -3,7 +3,7 @@ import UserTable from '../components/UserTable';
 import AddUserModal from '../components/AddUserModal';
 import userService from '../services/userService';
 import { useAuth } from '../hooks/useAuth';
-import { UserPlus, RefreshCw } from 'lucide-react';
+import { UserPlus, RefreshCw, Users as UsersIcon, AlertCircle } from 'lucide-react';
 
 const Users = () => {
   const { isAdmin } = useAuth();
@@ -46,18 +46,21 @@ const Users = () => {
   };
 
   return (
-    <div className="px-4 sm:px-0">
-      <div className="flex justify-between items-center mb-6">
+    <div>
+      <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Gestion des employés</h1>
-          <p className="text-gray-600 mt-1">
-            {users.length} employé{users.length > 1 ? 's' : ''}
-          </p>
+          <h1 className="text-3xl font-bold text-neutral-900 mb-2">Gestion des employés</h1>
+          <div className="flex items-center text-neutral-600">
+            <UsersIcon className="w-4 h-4 mr-2" />
+            <span className="text-sm font-medium">
+              {users.length} employé{users.length > 1 ? 's' : ''}
+            </span>
+          </div>
         </div>
         <div className="flex gap-3">
           <button
             onClick={fetchUsers}
-            className="flex items-center px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+            className="flex items-center px-4 py-2.5 text-neutral-700 hover:text-primary-600 hover:bg-primary-50 rounded-lg transition-all"
           >
             <RefreshCw className="w-4 h-4 mr-2" />
             Actualiser
@@ -65,7 +68,7 @@ const Users = () => {
           {isAdmin() && (
             <button
               onClick={() => setIsModalOpen(true)}
-              className="flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-700"
+              className="btn-primary"
             >
               <UserPlus className="w-4 h-4 mr-2" />
               Ajouter un employé
@@ -75,15 +78,16 @@ const Users = () => {
       </div>
 
       {error && (
-        <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded">
-          {error}
+        <div className="mb-6 flex items-start gap-3 p-4 bg-error-50 border border-error-200 rounded-xl">
+          <AlertCircle className="w-5 h-5 text-error-600 flex-shrink-0 mt-0.5" />
+          <p className="text-sm text-error-700">{error}</p>
         </div>
       )}
 
       {loading ? (
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-12 w-12 border-b-2 border-primary"></div>
-          <p className="mt-4 text-gray-600">Chargement des utilisateurs...</p>
+        <div className="text-center py-16">
+          <div className="inline-block animate-spin rounded-full h-12 w-12 border-4 border-primary-200 border-t-primary-600"></div>
+          <p className="mt-4 text-neutral-600 font-medium">Chargement des utilisateurs...</p>
         </div>
       ) : (
         <UserTable users={users} onDelete={handleDelete} />

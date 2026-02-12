@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { Send } from 'lucide-react';
+import { Send, FileText, MessageSquare } from 'lucide-react';
 
 const AnnouncementForm = ({ onSubmit, editMode = false, initialData = null, onCancel = null }) => {
   const [title, setTitle] = useState(initialData?.title || '');
@@ -24,36 +24,38 @@ const AnnouncementForm = ({ onSubmit, editMode = false, initialData = null, onCa
     }
   };
 
-  const getButtonText = () => {
-    if (loading) return 'Envoi...';
-    if (editMode) return 'Mettre à jour';
-    return 'Publier';
-  };
-
   return (
-    <form onSubmit={handleSubmit} className="bg-white shadow-md rounded-lg p-6 mb-6">
-      <h3 className="text-lg font-semibold mb-4">
+    <form onSubmit={handleSubmit} className="card p-6 mb-6">
+      <h3 className="text-lg font-bold text-neutral-900 mb-5 flex items-center">
+        <div className="w-8 h-8 bg-primary-100 rounded-lg flex items-center justify-center mr-3">
+          <MessageSquare className="w-4 h-4 text-primary-600" />
+        </div>
         {editMode ? 'Modifier l\'annonce' : 'Nouvelle annonce'}
       </h3>
 
-      <div className="space-y-4">
+      <div className="space-y-5">
         <div>
-          <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="title" className="block text-sm font-medium text-neutral-700 mb-2">
             Titre
           </label>
-          <input
-            id="title"
-            type="text"
-            required
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="Titre de l'annonce"
-          />
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
+              <FileText className="h-5 w-5 text-neutral-400" />
+            </div>
+            <input
+              id="title"
+              type="text"
+              required
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="input-modern pl-11"
+              placeholder="Titre de l'annonce"
+            />
+          </div>
         </div>
 
         <div>
-          <label htmlFor="content" className="block text-sm font-medium text-gray-700 mb-1">
+          <label htmlFor="content" className="block text-sm font-medium text-neutral-700 mb-2">
             Contenu
           </label>
           <textarea
@@ -62,26 +64,35 @@ const AnnouncementForm = ({ onSubmit, editMode = false, initialData = null, onCa
             value={content}
             onChange={(e) => setContent(e.target.value)}
             rows="4"
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-            placeholder="Contenu de l'annonce"
+            className="input-modern resize-none"
+            placeholder="Rédigez votre annonce ici..."
           />
         </div>
 
-        <div className="flex gap-2">
+        <div className="flex gap-3 pt-2">
           <button
             type="submit"
             disabled={loading}
-            className="flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-700 disabled:opacity-50"
+            className="btn-primary"
           >
-            <Send className="w-4 h-4 mr-2" />
-            {getButtonText()}
+            {loading ? (
+              <>
+                <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                Envoi en cours...
+              </>
+            ) : (
+              <>
+                <Send className="w-4 h-4 mr-2" />
+                {editMode ? 'Mettre à jour' : 'Publier'}
+              </>
+            )}
           </button>
 
           {editMode && onCancel && (
             <button
               type="button"
               onClick={onCancel}
-              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
+              className="btn-secondary"
             >
               Annuler
             </button>
