@@ -14,7 +14,7 @@ Route::middleware([
     'api',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
-])->group(function () {
+])->prefix('api')->group(function () {
     
     Route::get('/health', function () {
         return response()->json([
@@ -31,8 +31,7 @@ Route::middleware([
     });
 
     Route::middleware('auth:sanctum')->group(function () {
-        
-        Route::apiResource('users', UserController::class)->except(['update']);        
+        Route::apiResource('users', UserController::class)->only(['index', 'store', 'show', 'destroy']);        
         Route::apiResource('announcements', AnnouncementController::class);
     });
 });

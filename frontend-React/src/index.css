@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-neutral-50 text-neutral-800 antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply text-neutral-900 font-semibold;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-primary-600 to-primary-500 text-white font-semibold rounded-xl shadow-soft hover:from-primary-700 hover:to-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-white text-neutral-700 font-semibold rounded-xl border border-neutral-200 shadow-sm hover:bg-neutral-50 hover:border-neutral-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 transition-all duration-200;
+  }
+  
+  .btn-danger {
+    @apply inline-flex items-center justify-center px-6 py-3 bg-gradient-to-r from-error-600 to-error-500 text-white font-semibold rounded-xl hover:from-error-700 hover:to-error-600 focus:outline-none focus:ring-2 focus:ring-error-500 focus:ring-offset-2 transition-all duration-200 shadow-soft;
+  }
+  
+  .card {
+    @apply bg-white rounded-2xl shadow-soft border border-neutral-100 backdrop-blur-sm;
+  }
+  
+  .card-hover {
+    @apply bg-white rounded-2xl shadow-soft border border-neutral-100 hover:shadow-soft-lg hover:border-neutral-200 transition-all duration-300 backdrop-blur-sm;
+  }
+  
+  .input-modern {
+    @apply block w-full px-4 py-3 bg-white border-2 border-neutral-200 rounded-xl text-neutral-900 placeholder-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all duration-200;
+  }
+  
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold;
+  }
+  
+  .badge-success {
+    @apply bg-success-50 text-success-700 border border-success-200;
+  }
+  
+  .badge-error {
+    @apply bg-error-50 text-error-700 border border-error-200;
+  }
+  
+  .badge-warning {
+    @apply bg-warning-50 text-warning-700 border border-warning-200;
+  }
+  
+  .badge-info {
+    @apply bg-primary-50 text-primary-700 border border-primary-200;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 4px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
