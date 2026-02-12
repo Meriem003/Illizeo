@@ -33,15 +33,13 @@ const Navbar = () => {
                 <Home className="w-4 h-4 mr-2" />
                 Dashboard
               </Link>
-              {isAdmin() && (
-                <Link
-                  to="/users"
-                  className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-primary"
-                >
-                  <Users className="w-4 h-4 mr-2" />
-                  Users
-                </Link>
-              )}
+              <Link
+                to="/users"
+                className="inline-flex items-center px-1 pt-1 text-sm font-medium text-gray-900 border-b-2 border-transparent hover:border-primary"
+              >
+                <Users className="w-4 h-4 mr-2" />
+                Users
+              </Link>
             </div>
           </div>
           <div className="flex items-center">

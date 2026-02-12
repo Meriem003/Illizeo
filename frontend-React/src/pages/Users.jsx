@@ -2,9 +2,11 @@ import { useState, useEffect } from 'react';
 import UserTable from '../components/UserTable';
 import AddUserModal from '../components/AddUserModal';
 import userService from '../services/userService';
+import { useAuth } from '../hooks/useAuth';
 import { UserPlus, RefreshCw } from 'lucide-react';
 
 const Users = () => {
+  const { isAdmin } = useAuth();
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -60,13 +62,15 @@ const Users = () => {
             <RefreshCw className="w-4 h-4 mr-2" />
             Actualiser
           </button>
-          <button
-            onClick={() => setIsModalOpen(true)}
-            className="flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-700"
-          >
-            <UserPlus className="w-4 h-4 mr-2" />
-            Ajouter un employé
-          </button>
+          {isAdmin() && (
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="flex items-center px-4 py-2 bg-primary text-white rounded-md hover:bg-blue-700"
+            >
+              <UserPlus className="w-4 h-4 mr-2" />
+              Ajouter un employé
+            </button>
+          )}
         </div>
       </div>
 

@@ -5,7 +5,7 @@ import { fr } from 'date-fns/locale';
 import { useAuth } from '../hooks/useAuth';
 
 const UserTable = ({ users, onDelete }) => {
-  const { user: currentUser } = useAuth();
+  const { user: currentUser, isAdmin } = useAuth();
 
   const handleDelete = (userId, userName) => {
     if (globalThis.confirm(`Êtes-vous sûr de vouloir supprimer l'utilisateur "${userName}" ?`)) {
@@ -71,7 +71,7 @@ const UserTable = ({ users, onDelete }) => {
               <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                 {user.id === currentUser?.id ? (
                   <span className="text-gray-400 text-xs">(Vous)</span>
-                ) : (
+                ) : isAdmin() ? (
                   <button
                     onClick={() => handleDelete(user.id, user.name)}
                     className="text-red-600 hover:text-red-900 inline-flex items-center"
@@ -79,6 +79,8 @@ const UserTable = ({ users, onDelete }) => {
                     <Trash2 className="w-4 h-4 mr-1" />
                     Supprimer
                   </button>
+                ) : (
+                  <span className="text-gray-400 text-xs">-</span>
                 )}
               </td>
             </tr>

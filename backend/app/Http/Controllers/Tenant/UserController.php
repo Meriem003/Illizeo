@@ -69,7 +69,6 @@ class UserController extends Controller
         ]);
     }
 
-
     public function destroy(Request $request, string $id)
     {
         if (!$request->user()->is_admin) {
@@ -79,10 +78,22 @@ class UserController extends Controller
         }
 
         $user = User::findOrFail($id);
+        
+        // Empêcher la suppression de son propre compte
         if ($user->id === $request->user()->id) {
             return response()->json([
                 'message' => 'Vous ne pouvez pas supprimer votre propre compte.',
             ], 403);
+        }
+
+        // SÉCURITÉ : Empêcher la suppression du dernier admin
+        if ($user->is_admin) {
+            $adminCount = User::where('is_admin', true)->count();
+            if ($adminCount <= 1) {
+                return response()->json([
+                    'message' => 'Impossible de supprimer ce compte. Il doit y avoir au moins un administrateur.',
+                ], 403);
+            }
         }
 
         $user->delete();
