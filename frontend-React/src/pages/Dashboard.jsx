@@ -13,7 +13,6 @@ const Dashboard = () => {
     try {
       setLoading(true);
       const data = await announcementService.getAll();
-      // Sort by most recent first
       setAnnouncements(data.sort((a, b) => new Date(b.created_at) - new Date(a.created_at)));
       setError('');
     } catch (err) {
@@ -31,7 +30,7 @@ const Dashboard = () => {
   const handleCreate = async (data) => {
     try {
       await announcementService.create(data);
-      await fetchAnnouncements(); // Refresh list
+      await fetchAnnouncements(); 
     } catch (err) {
       setError('Erreur lors de la création de l\'annonce');
       console.error(err);
@@ -41,7 +40,7 @@ const Dashboard = () => {
   const handleUpdate = async (id, data) => {
     try {
       await announcementService.update(id, data);
-      await fetchAnnouncements(); // Refresh list
+      await fetchAnnouncements();
     } catch (err) {
       setError('Erreur lors de la mise à jour de l\'annonce');
       console.error(err);
@@ -51,7 +50,7 @@ const Dashboard = () => {
   const handleDelete = async (id) => {
     try {
       await announcementService.delete(id);
-      await fetchAnnouncements(); // Refresh list
+      await fetchAnnouncements();
     } catch (err) {
       setError('Erreur lors de la suppression de l\'annonce');
       console.error(err);

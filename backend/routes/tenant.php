@@ -14,7 +14,7 @@ Route::middleware([
     'api',
     InitializeTenancyByDomain::class,
     PreventAccessFromCentralDomains::class,
-])->group(function () {
+])->prefix('api')->group(function () {
     
     Route::get('/health', function () {
         return response()->json([

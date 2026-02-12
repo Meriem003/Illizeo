@@ -1,10 +1,12 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
-import { LogOut, Users, Home } from 'lucide-react';
+import { LogOut, Users, Home, Building2 } from 'lucide-react';
+import { getTenantDisplayName } from '../utils/tenant';
 
 const Navbar = () => {
   const { user, logout, isAdmin } = useAuth();
   const navigate = useNavigate();
+  const tenantName = getTenantDisplayName();
 
   const handleLogout = async () => {
     await logout();
@@ -18,6 +20,10 @@ const Navbar = () => {
           <div className="flex">
             <div className="flex-shrink-0 flex items-center">
               <h1 className="text-2xl font-bold text-primary">Illizeo</h1>
+              <div className="ml-3 flex items-center px-2 py-1 bg-blue-50 rounded-md">
+                <Building2 className="w-4 h-4 text-primary mr-1" />
+                <span className="text-sm font-medium text-primary">{tenantName}</span>
+              </div>
             </div>
             <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
               <Link
