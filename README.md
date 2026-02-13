@@ -25,7 +25,7 @@ Application SaaS collaborative permettant à chaque entreprise de créer son esp
 - Middleware `InitializeTenancyByDomain` pour détecter le tenant
 
 ### Frontend - React 19
-- **Framework:** React 19 avec hooks modernes
+- **Framework:** React 
 - **Routing:** React Router v7
 - **Styling:** TailwindCSS avec design system personnalisé
 - **HTTP Client:** Axios avec intercepteurs
