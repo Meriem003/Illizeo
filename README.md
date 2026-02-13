@@ -10,7 +10,7 @@ Application SaaS collaborative permettant à chaque entreprise de créer son esp
 - Ses utilisateurs (administrateurs et employés)
 - Son espace d'annonces collaboratives
 
-## 🛠️ Architecture
+## Architecture
 
 ### Backend - Laravel 11
 - **Framework:** Laravel 11 avec architecture API REST
@@ -84,14 +84,6 @@ npm run dev
 # Démarre sur http://localhost:5174
 ```
 
-## 🧪 Comptes de Test
-
-| Tenant | URL | Email | Password | Rôle |
-|--------|-----|-------|----------|------|
-| Acme Corp | `acme.localhost:5174` | alice@acme.com | password123 | Admin |
-| Acme Corp | `acme.localhost:5174` | charlie@acme.com | password123 | Employé |
-| TechCorp | `techcorp.localhost:5174` | bob@techcorp.com | password123 | Admin |
-
 ## �️ Structure
 
 ```
@@ -136,4 +128,4 @@ Illizeo/
 
 ---
 
-💻 **Développé par** meryem salhi | 🏢 **Projet** Illizeo Multi-Tenant Test technique 
+**Développé par** meryem salhi | **Projet** Illizeo Multi-Tenant Test technique 

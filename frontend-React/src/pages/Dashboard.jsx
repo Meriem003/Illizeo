@@ -188,7 +188,6 @@ const Dashboard = () => {
         </div>
       )}
       
-      {/* Announcements List */}
       {!loading && announcements.length > 0 && (
         <div className="space-y-5">
           <div className="flex items-center justify-between mb-2">

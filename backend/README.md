@@ -35,15 +35,6 @@ php artisan migrate:fresh --seed
 php artisan serve
 ```
 
-## Identifiants de Test
-
-| Tenant | Domain | Email | Password | Rôle |
-|--------|--------|-------|----------|------|
-| Acme | acme.localhost:8000 | alice@acme.com | password123 | Admin |
-| Acme | acme.localhost:8000 | charlie@acme.com | password123 | User |
-| TechCorp | techcorp.localhost:8000 | bob@techcorp.com | password123 | Admin |
-| TechCorp | techcorp.localhost:8000 | eve@techcorp.com | password123 | User |
-
 ## Routes API
 
 ### Central (localhost:8000)
