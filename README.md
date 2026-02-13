@@ -37,25 +37,25 @@ Application SaaS collaborative permettant à chaque entreprise de créer son esp
 - `Users` : Gestion d'équipe (admin seulement)
 - `AuthContext` : Gestion de l'état d'authentification
 
-## ✨ Fonctionnalités Principales
+## Fonctionnalités Principales
 
-### 🔐 Multi-tenancy
+### Multi-tenancy
 - **Isolation physique** : Chaque tenant = 1 base de données MySQL
 - **Domaines uniques** : `entreprise.localhost`
 - **Détection automatique** : Middleware résout le tenant via le domaine
 
-### 👥 Gestion Utilisateurs
+### Gestion Utilisateurs
 - **Rôles** : Admin (full access) / Employé (lecture + création)
 - **CRUD Utilisateurs** : Réservé aux administrateurs
 - **Protection** : Un admin ne peut pas se supprimer
 
-### 📢 Système d'Annonces
+### Système d'Annonces
 - **Création** : Tous les utilisateurs authentifiés
 - **Lecture** : Toutes les annonces visibles par tous
 - **Modification/Suppression** : Réservée à l'auteur uniquement
 - **Policies Laravel** : `AnnouncementPolicy` applique les règles
 
-## 🚀 Installation
+## Installation
 
 ### Prérequis
 - PHP 8.2+, Composer
@@ -109,7 +109,7 @@ Illizeo/
     └── tailwind.config.js   # Design system
 ```
 
-## � API Endpoints
+## API Endpoints
 
 ### Central (`localhost:8000/api`)
 - `POST /register-tenant` - Créer nouveau tenant + admin
@@ -119,7 +119,7 @@ Illizeo/
 **Users (Admin):** `GET /users`, `POST /users`, `DELETE /users/{id}`  
 **Announcements:** `GET`, `POST`, `PUT /{id}`, `DELETE /{id}`
 
-## 🛡️ Sécurité
+## Sécurité
 
 - **Multi-tenancy:** Isolation base de données + middleware `InitializeTenancyByDomain`
 - **Auth:** Laravel Sanctum avec tokens stateless
