@@ -11,7 +11,6 @@ function App() {
     <BrowserRouter>
       <AuthProvider>
         <Routes>
-          {/* Auth routes */}
           <Route path="/auth" element={<AuthPage />} />
           <Route path="/login" element={<Navigate to="/auth" replace />} />
           <Route path="/register" element={<Navigate to="/auth" replace />} />

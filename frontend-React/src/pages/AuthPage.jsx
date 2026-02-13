@@ -168,7 +168,7 @@ const AuthPage = () => {
             />
 
             <a href="#" className="text-primary-600 text-sm my-4 hover:text-primary-700 transition-colors flex items-center gap-2">
-              <Lock size={14} /> Mot de passe oublié ?
+              <Lock size={14} /> Créez votre espace 
             </a>
 
             <button
@@ -308,7 +308,7 @@ const AuthPage = () => {
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-5 animate-pulse">
                 <Building2 size={32} />
               </div>
-              <h1 className="text-3xl font-bold mb-3">Rejoignez-nous !</h1>
+              <h className="text-3xl font-bold mb-3">Rejoignez-nous !</h>
               <p className="text-sm leading-6 mb-6">Connectez-vous pour accéder à votre espace de travail</p>
               <button
                 type="button"
@@ -323,7 +323,7 @@ const AuthPage = () => {
               <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mb-5 animate-pulse">
                 <Building2 size={32} />
               </div>
-              <h1 className="text-3xl font-bold mb-3">Nouvelle Entreprise ?</h1>
+              <h className="text-3xl font-bold mb-3">Nouvelle Entreprise ?</h>
               <p className="text-sm leading-6 mb-6">Créez votre espace SaaS et gérez votre équipe en quelques clics</p>
               <button
                 type="button"

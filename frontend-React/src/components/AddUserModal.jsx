@@ -39,10 +39,8 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
   return (
     <div className="fixed inset-0 bg-neutral-900/50 backdrop-blur-sm flex items-center justify-center z-50 p-4">
       <div className="card p-8 max-w-lg w-full mx-4 relative overflow-hidden animate-scale-in">
-        {/* Top gradient accent */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 via-primary-400 to-primary-600"></div>
         
-        {/* Header */}
         <div className="flex justify-between items-center mb-8">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-600 rounded-2xl flex items-center justify-center shadow-lg shadow-primary-500/30">
@@ -61,7 +59,6 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
           </button>
         </div>
 
-        {/* Error Message */}
         {error && (
           <div className="mb-6 flex items-start gap-3 p-4 bg-error-50 border border-error-200 rounded-xl animate-slide-in-right">
             <AlertCircle className="w-5 h-5 text-error-600 flex-shrink-0 mt-0.5" />
@@ -69,9 +66,7 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
           </div>
         )}
 
-        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Name Input */}
           <div>
             <label htmlFor="user-name" className="block text-sm font-semibold text-neutral-700 mb-2">
               Nom complet
@@ -92,7 +87,6 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* Email Input */}
           <div>
             <label htmlFor="user-email" className="block text-sm font-semibold text-neutral-700 mb-2">
               Adresse email
@@ -113,7 +107,6 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* Password Input */}
           <div>
             <label htmlFor="user-password" className="block text-sm font-semibold text-neutral-700 mb-2">
               Mot de passe
@@ -138,7 +131,6 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
             </p>
           </div>
 
-          {/* Admin Checkbox */}
           <div className="relative overflow-hidden rounded-xl border-2 border-primary-200 bg-gradient-to-br from-primary-50 to-primary-100/50 p-4 transition-all hover:border-primary-300">
             <div className="flex items-start gap-3">
               <input
@@ -160,7 +152,6 @@ const AddUserModal = ({ isOpen, onClose, onSubmit }) => {
             </div>
           </div>
 
-          {/* Action Buttons */}
           <div className="flex gap-3 pt-6 border-t border-neutral-100">
             <button
               type="button"

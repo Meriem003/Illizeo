@@ -56,7 +56,6 @@ const Users = () => {
 
   return (
     <div className="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-      {/* Header Section */}
       <div className="mb-8">
         <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4">
           <div>
@@ -95,7 +94,6 @@ const Users = () => {
         </div>
       </div>
 
-      {/* Statistics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="card p-6 hover:shadow-soft-lg transition-shadow">
           <div className="flex items-center justify-between">
@@ -144,7 +142,6 @@ const Users = () => {
         </div>
       </div>
 
-      {/* Error Message */}
       {error && (
         <div className="mb-6 flex items-start gap-3 p-4 bg-error-50 border border-error-200 rounded-2xl animate-slide-in-right">
           <AlertCircle className="w-5 h-5 text-error-600 flex-shrink-0 mt-0.5" />
@@ -160,7 +157,6 @@ const Users = () => {
         </div>
       )}
 
-      {/* Loading State */}
       {loading && (
         <div className="text-center py-20">
           <div className="inline-block">
@@ -171,7 +167,6 @@ const Users = () => {
         </div>
       )}
 
-      {/* Empty State */}
       {!loading && users.length === 0 && (
         <div className="text-center py-20 card">
           <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-primary-100 to-primary-50 rounded-3xl mb-6 shadow-lg shadow-primary-500/10">
@@ -193,12 +188,10 @@ const Users = () => {
         </div>
       )}
 
-      {/* Users Table */}
       {!loading && users.length > 0 && (
         <UserTable users={users} onDelete={handleDelete} />
       )}
 
-      {/* Add User Modal */}
       <AddUserModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
